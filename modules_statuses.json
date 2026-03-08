@@ -1,0 +1,10 @@
+{
+    "SocialMedia": true,
+    "Page": true,
+    "Faq": true,
+    "Service": true,
+    "Permission": true,
+    "Settings": true,
+    "Development": true,
+    "Project": true
+}
