@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('subtitle');
             $table->unsignedBigInteger('development_process_id');
             $table->string('locale')->index();
-            $table->unique(['development_process_id', 'locale']);
+            $table->unique(['development_process_id', 'locale'], 'dev_process_trans_unique');
             $table->foreign('development_process_id')->references('id')->on('development_processes')->onDelete('cascade');
             $table->timestamps();
         });

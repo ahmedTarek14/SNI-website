@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\User;
+use Modules\Auth\Models\Admin;
+
 return [
 
     /*
