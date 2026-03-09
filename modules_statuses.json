@@ -6,5 +6,7 @@
     "Permission": true,
     "Settings": true,
     "Development": true,
-    "Project": true
+    "Project": true,
+    "Auth": true,
+    "Smart": true
 }

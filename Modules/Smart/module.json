@@ -1,0 +1,11 @@
+{
+    "name": "Smart",
+    "alias": "smart",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Smart\\Providers\\SmartServiceProvider"
+    ],
+    "files": []
+}
