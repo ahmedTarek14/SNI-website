@@ -24,7 +24,7 @@
                 <input class="form-control" type="text" name="link" value="{{ $socialMedia->link }}">
             </div>
             <div class="col-md-6 col-sm-6 form-group">
-                <img src="{{ $link->image_path }}" alt="logo">
+                <img src="{{ $socialMedia->image_path }}" alt="logo">
                 <label>Logo</label>
                 <input class="jfilestyle" type="file" name="logo">
             </div>
