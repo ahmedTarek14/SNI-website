@@ -9,7 +9,7 @@
 
     <!-- Title Name
         ================================-->
-    <title>ITAD VIP</title>
+    <title>SNI</title>
 
     <!-- Fave Icons
         ================================-->

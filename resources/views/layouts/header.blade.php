@@ -14,10 +14,10 @@
             <div class="dropdown-menu">
                 <ul>
                     <li>
-                        <a href="{{ route('admin.settings.index') }}">
+                        {{-- <a href="{{ route('admin.settings.index') }}">
                             <i class="fa fa-cog"></i>
                             setting
-                        </a>
+                        </a> --}}
                     </li>
                     <li>
                         <a href="javascript:;" onclick="$('#logout-form').submit()">
