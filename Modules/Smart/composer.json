@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/smart",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Smart\\": "",
+            "Modules\\Smart\\Database\\Factories\\": "database/factories/",
+            "Modules\\Smart\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Smart\\Tests\\": "tests/"
+        }
+    }
+}
