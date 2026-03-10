@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\SocialMedia\Http\Controllers\SocialMediaController;
+use Modules\SocialMedia\Http\Controllers\Api\SocialMediaController;
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('socialmedia', SocialMediaController::class)->names('socialmedia');
-});
+Route::prefix('sni')->middleware('app_language')
+    ->group(function () {
+        Route::get('/social-media', [SocialMediaController::class, 'index'])->name('social_media.index');
+    });
