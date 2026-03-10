@@ -8,5 +8,6 @@
     "Development": true,
     "Project": true,
     "Auth": true,
-    "Smart": true
+    "Smart": true,
+    "Sni": true
 }

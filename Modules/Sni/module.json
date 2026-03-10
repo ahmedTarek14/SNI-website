@@ -1,0 +1,11 @@
+{
+    "name": "Sni",
+    "alias": "sni",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Sni\\Providers\\SniServiceProvider"
+    ],
+    "files": []
+}
