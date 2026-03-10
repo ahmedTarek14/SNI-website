@@ -14,7 +14,7 @@ class SocialMediaResource extends JsonResource
         return [
             'platform' => (string) $this->platform,
             'link' => (string) $this->link,
-            'icon' => (string) $this->image,
+            'logo' => (string) $this->image_path,
         ];
     }
 }
