@@ -1,19 +1,19 @@
 <aside class="side-menu">
     <a href="{{ route('admin.dashboard') }}" class="logo">
-        {{-- <img src="{{ aurl('images/logo.png') }}"> --}}
+        <img src="{{ aurl('images/logo.png') }}">
     </a>
     <ul>
         <li class="{{ request()->is('admin') ? 'active' : '' }}">
-            {{-- <a href="{{ route('admin.dashboard') }}">
+            <a href="{{ route('admin.dashboard') }}">
                 <i class="fa fa-tachometer-alt"></i>
                 Dashboard
-            </a> --}}
+            </a>
         </li>
-        <li class="{{ request()->is('admin/social-links') || request()->is('admin/social-links/*') ? 'active' : '' }}">
-            {{-- <a href="{{ route('admin.links.index') }}">
+        <li class="{{ request()->is('admin/social-media') || request()->is('admin/social-media/*') ? 'active' : '' }}">
+            <a href="{{ route('admin.links.index') }}">
                 <i class="fa fa-share-alt"></i>
-                Social links
-            </a> --}}
+                Social Media
+            </a>
         </li>
         <li class="sub-menu">
             <a rel="noreferrer" href="javascript:void(0);">

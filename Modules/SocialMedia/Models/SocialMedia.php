@@ -12,6 +12,8 @@ class SocialMedia extends Model
 
     protected $fillable = ['platform', 'logo', 'link'];
 
+    protected $table = 'social_medias';
+
     public function getImagePathAttribute()
     {
         return $this->get_image($this->logo, 'social-media');
