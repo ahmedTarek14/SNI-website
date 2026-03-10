@@ -16,7 +16,7 @@ class SocialMediaRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:225'],
+            'platform' => ['required', 'string', 'max:225'],
             'link' => ['required', 'url'],
             'logo' => $this->isMethod('post') ? ['required', 'image', 'max:2048'] : ['image', 'max:2048'],
         ];
@@ -25,7 +25,7 @@ class SocialMediaRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'Name',
+            'platform' => 'Platform',
             'link' => 'Link',
             'logo' => 'Logo',
         ];
