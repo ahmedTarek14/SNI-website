@@ -33,7 +33,7 @@ class SocialMediaController extends Controller
             SocialMedia::create([
                 'platform' => $request->platform,
                 'link' => $request->link,
-                'logo' => $this->image_manipulate($request->light_image, 'social-media', 32, 32)
+                'logo' => $this->image_manipulate($request->logo, 'social-media', 32, 32)
             ]);
 
             $url = route('admin.links.index');
@@ -66,8 +66,8 @@ class SocialMediaController extends Controller
             $data = $request->all();
 
             if ($request->has('logo')) {
-                $this->image_delete($socialMedia->light_image, 'social-media');
-                $data['light_image'] = $this->image_manipulate($request->light_image, 'social-media', 32, 32);
+                $this->image_delete($socialMedia->logo, 'social-media');
+                $data['logo'] = $this->image_manipulate($request->logo, 'social-media', 32, 32);
             }
 
 

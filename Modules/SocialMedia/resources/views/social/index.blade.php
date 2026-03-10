@@ -16,7 +16,7 @@
 
             <div class="col-md-6 col-sm-6 form-group">
                 <label>Platform</label>
-                <input class="form-control" type="text" name="platform ">
+                <input class="form-control" type="text" name="platform">
             </div>
             <div class="col-md-6 col-sm-6 form-group">
                 <label>Link</label>
