@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Sni\Http\Controllers\SniController;
+use Modules\Sni\Http\Controllers\Api\SniPageController;
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('snis', SniController::class)->names('sni');
+Route::middleware(['app_language'])->prefix('sni')->group(function () {
+    Route::get('/home', [SniPageController::class, 'index'])->name('sni.page.show');
 });

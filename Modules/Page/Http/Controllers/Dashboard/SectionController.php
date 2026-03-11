@@ -24,8 +24,8 @@ class SectionController extends Controller
 
         foreach (config('translatable.locales') as $locale) {
             $translation = $section->translateOrNew($locale);
-            $translation->title = $request->title[$locale];
-            $translation->subtitle = $request->subtitle[$locale] ?? null;
+            $translation->title = $request->get('title_' . $locale);
+            $translation->subtitle = $request->get('subtitle_' . $locale) ?? null;
             $translation->save();
         }
 
@@ -46,8 +46,8 @@ class SectionController extends Controller
 
         foreach (config('translatable.locales') as $locale) {
             $translation = $section->translateOrNew($locale);
-            $translation->title = $request->title[$locale];
-            $translation->subtitle = $request->subtitle[$locale] ?? null;
+            $translation->title = $request->get('title_' . $locale);
+            $translation->subtitle = $request->get('subtitle_' . $locale) ?? null;
             $translation->save();
         }
 
