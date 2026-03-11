@@ -17,7 +17,17 @@ class BannerController extends Controller
 
     public function store(BannerRequest $request)
     {
-        Banner::create($request->all());
+        $banner = new Banner();
+        $banner->page_id = $request->page_id;
+        $banner->save();
+
+        foreach (config('translatable.locales') as $locale) {
+            $translation = $banner->translateOrNew($locale);
+            $translation->header = $request->get('header_' . $locale);
+            $translation->subtitle = $request->get('subtitle_' . $locale);
+            $translation->save();
+        }
+
         $url = route('admin.banners.index');
         return add_response($url);
     }
@@ -30,7 +40,16 @@ class BannerController extends Controller
 
     public function update(BannerRequest $request, Banner $banner)
     {
-        $banner->update($request->all());
+        $banner->page_id = $request->page_id;
+        $banner->save();
+
+        foreach (config('translatable.locales') as $locale) {
+            $translation = $banner->translateOrNew($locale);
+            $translation->header = $request->get('header_' . $locale);
+            $translation->subtitle = $request->get('subtitle_' . $locale);
+            $translation->save();
+        }
+
         $url = route('admin.banners.index');
         return update_response($url);
     }

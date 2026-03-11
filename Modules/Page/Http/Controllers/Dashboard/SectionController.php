@@ -18,7 +18,17 @@ class SectionController extends Controller
 
     public function store(SectionRequest $request)
     {
-        Section::create($request->all());
+        $section = new Section();
+        $section->page_id = $request->page_id;
+        $section->save();
+
+        foreach (config('translatable.locales') as $locale) {
+            $translation = $section->translateOrNew($locale);
+            $translation->title = $request->title[$locale];
+            $translation->subtitle = $request->subtitle[$locale] ?? null;
+            $translation->save();
+        }
+
         $url = route('admin.sections.index');
         return add_response($url);
     }
@@ -31,7 +41,16 @@ class SectionController extends Controller
 
     public function update(SectionRequest $request, Section $section)
     {
-        $section->update($request->all());
+        $section->page_id = $request->page_id;
+        $section->save();
+
+        foreach (config('translatable.locales') as $locale) {
+            $translation = $section->translateOrNew($locale);
+            $translation->title = $request->title[$locale];
+            $translation->subtitle = $request->subtitle[$locale] ?? null;
+            $translation->save();
+        }
+
         $url = route('admin.sections.index');
         return update_response($url);
     }

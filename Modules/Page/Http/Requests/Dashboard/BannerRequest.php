@@ -15,8 +15,8 @@ class BannerRequest extends FormRequest
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules["header.$locale"] = 'required|string';
-            $rules["subtitle.$locale"] = 'required|string';
+            $rules['header_' . $locale] = 'required|string';
+            $rules['subtitle_' . $locale] = 'required|string';
         }
 
         return $rules;
@@ -26,8 +26,8 @@ class BannerRequest extends FormRequest
     {
         $attrs = ['page_id' => 'Page'];
         foreach (config('translatable.locales') as $locale) {
-            $attrs["header.$locale"] = "Header (" . strtoupper($locale) . ")";
-            $attrs["subtitle.$locale"] = "Subtitle (" . strtoupper($locale) . ")";
+            $attrs['header_' . $locale] = "Header (" . strtoupper($locale) . ")";
+            $attrs['subtitle_' . $locale] = "Subtitle (" . strtoupper($locale) . ")";
         }
         return $attrs;
     }

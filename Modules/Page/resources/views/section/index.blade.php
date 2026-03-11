@@ -60,8 +60,8 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $section->page?->template }}</td>
-                            <td>{{ $section->translate($locales[0])->title ?? '' }}</td>
-                            <td>{{ $section->translate($locales[0])->subtitle ?? '' }}</td>
+                            <td>{{ $section->translate('en')->title ?? '' }}</td>
+                            <td>{{ $section->translate('en')->subtitle ?? '' }}</td>
                             <td>
                                 <a href="{{ route('admin.sections.edit', ['section' => $section->id]) }}" class="icon-btn green-bc">
                                     <i class="fas fa-edit"></i>

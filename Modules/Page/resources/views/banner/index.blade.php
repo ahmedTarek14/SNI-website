@@ -59,8 +59,8 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $banner->page?->template }}</td>
-                            <td>{{ $banner->translate($locales[0])->header ?? '' }}</td>
-                            <td>{{ $banner->translate($locales[0])->subtitle ?? '' }}</td>
+                            <td>{{ $banner->translate('en')->header ?? '' }}</td>
+                            <td>{{ $banner->translate('en')->subtitle ?? '' }}</td>
                             <td>
                                 <a href="{{ route('admin.banners.edit', ['banner' => $banner->id]) }}" class="icon-btn green-bc">
                                     <i class="fas fa-edit"></i>
