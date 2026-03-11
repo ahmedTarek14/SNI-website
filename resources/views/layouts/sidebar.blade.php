@@ -9,7 +9,21 @@
                 Dashboard
             </a>
         </li>
-        <li class="{{ request()->is('admin/social-media') || request()->is('admin/social-media/*') ? 'active' : '' }}">
+        <li class="{{ request()->is('admin/banners') || request()->is('admin/banners/*') ? 'active' : '' }}">
+            <a href="{{ route('admin.banners.index') }}">
+                <i class="fa fa-image"></i>
+                Banners
+            </a>
+        </li>
+
+        <li class="{{ request()->is('admin/sections') || request()->is('admin/sections/*') ? 'active' : '' }}">
+            <a href="{{ route('admin.sections.index') }}">
+                <i class="fa fa-list"></i>
+                Sections
+            </a>
+        </li>
+
+         <li class="{{ request()->is('admin/social-media') || request()->is('admin/social-media/*') ? 'active' : '' }}">
             <a href="{{ route('admin.links.index') }}">
                 <i class="fa fa-share-alt"></i>
                 Social Media
@@ -18,7 +32,7 @@
         <li class="sub-menu">
             <a rel="noreferrer" href="javascript:void(0);">
                 <i class="fa fa-home"></i>
-                Home page
+                Pages
                 <i class="fa fa-angle-down"></i>
             </a>
             <ul style="display : {{ request()->is('admin/home/*') ? 'block' : '' }}">

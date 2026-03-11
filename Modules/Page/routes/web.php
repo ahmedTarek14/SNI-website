@@ -12,4 +12,24 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
         Route::put('/update/{page}', 'update')->name('update');
         Route::delete('/delete/{page}', 'destroy')->name('destroy');
     });
+
+    // banners CRUD (formerly headers)
+    Route::controller(\Modules\Page\Http\Controllers\Dashboard\BannerController::class)
+        ->name('admin.banners.')->prefix('banners')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{banner}', 'edit')->name('edit');
+            Route::put('/update/{banner}', 'update')->name('update');
+            Route::delete('/delete/{banner}', 'destroy')->name('destroy');
+        });
+
+    // sections CRUD
+    Route::controller(\Modules\Page\Http\Controllers\Dashboard\SectionController::class)
+        ->name('admin.sections.')->prefix('sections')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{section}', 'edit')->name('edit');
+            Route::put('/update/{section}', 'update')->name('update');
+            Route::delete('/delete/{section}', 'destroy')->name('destroy');
+        });
 });
