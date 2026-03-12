@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Smart\Http\Controllers\SmartController;
+use Modules\Smart\Http\Controllers\Api\SmartController;
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('smarts', SmartController::class)->names('smart');
+Route::middleware(['app_language'])->prefix('sni')->group(function () {
+    Route::get('/smart-home', [SmartController::class, 'index'])->name('smart.page.show');
 });
