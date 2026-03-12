@@ -12,6 +12,13 @@ class ChallengeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'title' => (string) $this?->translateOrDefault(locale())?->title,
+            'challenge' => (string) $this?->translateOrDefault(locale())?->challenge,
+            'solution' => (string) $this?->translateOrDefault(locale())?->solution,
+            'result' => (string) $this?->translateOrDefault(locale())?->result,
+            'description' => (string) $this?->translateOrDefault(locale())?->description,
+            'image' => (string) $this?->image_path,
+        ];
     }
 }

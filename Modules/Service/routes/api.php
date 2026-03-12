@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Service\Http\Controllers\ServiceController;
+use Modules\Service\Http\Controllers\Api\ServiceController;
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('services', ServiceController::class)->names('service');
+
+Route::middleware(['app_language'])->prefix('sni')->group(function () {
+    Route::get('/services', [ServiceController::class, 'index'])->name('service.page.show');
 });

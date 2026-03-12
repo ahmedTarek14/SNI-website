@@ -65,11 +65,11 @@ class SniPageController extends Controller
             $data = [
                 'banner'               => $banner ? new BannerResource($banner) : null,
                 'section0'             => $sections->get(0) ? new SectionResource($sections->get(0)) : null,
-                'services'             => ServiceResource::collection($services),
+                'services'             => ServiceResource::collection($services)->response()->getData(true),
                 'section1'             => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
-                'smart_home_features'  => SmartResource::collection($smartFeatures),
+                'smart_home_features'  => SmartResource::collection($smartFeatures)->response()->getData(true),
                 'section2'             => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
-                'about_us'             => AboutUsResource::collection($about),
+                'about_us'             => AboutUsResource::collection($about)->response()->getData(true),
                 'section3'             => $sections->get(3) ? new SectionResource($sections->get(3)) : null,
                 'contact'              => new SniContactResource([
                     'addresses' => $locations
