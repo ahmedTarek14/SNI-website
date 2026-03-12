@@ -14,6 +14,7 @@ use Modules\Smart\Http\Resources\SmartResource;
 use Modules\Sni\Models\About;
 use Modules\Smart\Models\SmartFeature;
 use Modules\Sni\Http\Resources\AboutUsResource;
+use Modules\Sni\Http\Resources\SniContactResource;
 
 class SniPageController extends Controller
 {
@@ -70,6 +71,17 @@ class SniPageController extends Controller
                 'section2'             => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
                 'about_us'             => AboutUsResource::collection($about),
                 'section3'             => $sections->get(3) ? new SectionResource($sections->get(3)) : null,
+                'contact'              => new SniContactResource([
+                    'addresses' => $locations
+                        ->map(static function (Location $location) {
+                            return $location->translateOrDefault(locale())?->address ?? null;
+                        })
+                        ->filter()
+                        ->values()
+                        ->all(),
+                    'phones'    => $setting?->phone ? [(string) $setting->phone] : [],
+                    'emails'    => $setting?->email ? [(string) $setting->email] : [],
+                ]),
             ];
 
 
