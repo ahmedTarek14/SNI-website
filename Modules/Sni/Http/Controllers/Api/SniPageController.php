@@ -10,11 +10,11 @@ use Modules\Service\Http\Resources\ServiceResource;
 use Modules\Service\Models\Service;
 use Modules\Settings\Models\Location;
 use Modules\Settings\Models\Setting;
-use Modules\Smart\Http\Resources\SmartResource;
 use Modules\Sni\Models\About;
-use Modules\Smart\Models\SmartFeature;
 use Modules\Sni\Http\Resources\AboutUsResource;
 use Modules\Sni\Http\Resources\SniContactResource;
+use Modules\Sni\Http\Resources\VendorResource;
+use Modules\Sni\Models\Vendor;
 
 class SniPageController extends Controller
 {
@@ -33,7 +33,7 @@ class SniPageController extends Controller
 
             $services = Service::orderByDesc('id')->get();
 
-            $smartFeatures = SmartFeature::orderByDesc('id')->get();
+            $vendors = Vendor::orderByDesc('id')->get();
 
             $about = About::orderByDesc('id')->get();
 
@@ -67,7 +67,7 @@ class SniPageController extends Controller
                 'section0'             => $sections->get(0) ? new SectionResource($sections->get(0)) : null,
                 'services'             => ServiceResource::collection($services)->response()->getData(true),
                 'section1'             => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
-                'smart_home_features'  => SmartResource::collection($smartFeatures)->response()->getData(true),
+                'vendors'              => VendorResource::collection($vendors)->response()->getData(true),
                 'section2'             => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
                 'about_us'             => AboutUsResource::collection($about)->response()->getData(true),
                 'section3'             => $sections->get(3) ? new SectionResource($sections->get(3)) : null,

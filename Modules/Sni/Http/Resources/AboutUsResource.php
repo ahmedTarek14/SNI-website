@@ -21,4 +21,3 @@ class AboutUsResource extends JsonResource
         ];
     }
 }
-

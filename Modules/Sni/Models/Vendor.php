@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\ImageTrait;
 use Astrotomic\Translatable\Translatable;
 
-class About extends Model
+class Vendor extends Model
 {
     use HasFactory, Translatable, ImageTrait;
 
