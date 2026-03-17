@@ -1,4 +1,25 @@
 @extends('layouts.master')
+@push('css')
+<style>
+    .img-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        padding-top: 50px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.8);
+        text-align: center;
+    }
+
+    .img-modal img {
+        max-width: 90%;
+        max-height: 90%;
+    }
+</style>
+@endpush
 @section('content')
     <div class="page-head">
         <i class="fa fa-list"></i> Projects
@@ -83,7 +104,12 @@
                     @foreach ($projects as $index => $project)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td><img src="{{ $project->image_path }}"></td>
+                            <td>
+                                <img src="{{ $project->image_path }}"
+                                    style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;"
+                                    onclick="openImage(this.src)">
+                            </td>
+                            
                             <td>{{ $project->translate('en')->name ?? '' }}</td>
                             <td>{{ $project->clint }}</td>
                             <td>{{ $project->date_at }}</td>
@@ -103,4 +129,19 @@
             </table>
         </div>
     </div>
+    <div id="imgModal" class="img-modal" onclick="closeImage()">
+        <img id="modalImg">
+    </div>
 @endsection
+@push('js')
+<script>
+    function openImage(src) {
+        document.getElementById("imgModal").style.display = "block";
+        document.getElementById("modalImg").src = src;
+    }
+
+    function closeImage() {
+        document.getElementById("imgModal").style.display = "none";
+    }
+</script>
+@endpush
