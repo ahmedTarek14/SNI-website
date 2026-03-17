@@ -18,7 +18,7 @@ class ProjectResource extends JsonResource
             'name' => (string) $this?->translateOrDefault(locale())?->name,
             'description' => (string) $this?->translateOrDefault(locale())?->description,
             'date_at' => (string) $this?->translateOrDefault(locale())?->result,
-            'development' => $this?->development?->translateOrDefault(locale())?->name,
+            'category' => $this?->category?->name,
         ];
     }
 }
