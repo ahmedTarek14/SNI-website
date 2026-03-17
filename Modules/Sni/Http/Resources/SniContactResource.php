@@ -35,4 +35,3 @@ class SniContactResource extends JsonResource
         ];
     }
 }
-
