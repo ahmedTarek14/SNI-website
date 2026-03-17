@@ -6,7 +6,7 @@
             <li><a href="{{ route('admin.dashboard') }}">
                     <i class="fa fa-home"></i>home</a>
             </li>
-            <li><a href="{{ route('faq.index') }}">FAQ</a></li>
+            <li><a href="{{ route('admin.faqs.index') }}">FAQ</a></li>
             <li class="active">Edit</li>
         </ul>
     </div>
