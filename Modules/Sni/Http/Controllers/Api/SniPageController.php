@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Modules\Page\Http\Resources\BannerResource;
 use Modules\Page\Http\Resources\SectionResource;
 use Modules\Page\Models\Page;
+use Modules\Project\Http\Resources\ImpactNumberResource;
+use Modules\Project\Models\ImpactNumber;
 use Modules\Service\Http\Resources\ServiceResource;
 use Modules\Service\Models\Service;
 use Modules\Settings\Models\Location;
@@ -41,6 +43,8 @@ class SniPageController extends Controller
 
             $setting = Setting::all()->first();
 
+            $impactNumber = ImpactNumber::first();
+
             // $payload = [
             //     'banner' => $banner,
             //     'sections' => [
@@ -69,8 +73,10 @@ class SniPageController extends Controller
                 'section1' => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
                 'vendors' => VendorResource::collection($vendors)->response()->getData(true),
                 'section2' => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
-                'about_us' => AboutUsResource::collection($about)->response()->getData(true),
+                'impact_number' => $impactNumber ? new ImpactNumberResource($impactNumber) : null,
                 'section3' => $sections->get(3) ? new SectionResource($sections->get(3)) : null,
+                'about_us' => AboutUsResource::collection($about)->response()->getData(true),
+                'section4' => $sections->get(4) ? new SectionResource($sections->get(4)) : null,
                 'contact' => new SniContactResource([
                     'addresses' => $locations
                         ->map(static function (Location $location) {
