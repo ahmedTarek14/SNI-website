@@ -58,11 +58,11 @@
                             <td>{{ $faq->translate('en')->question ?? '' }}</td>
                             <td>{{ \Illuminate\Support\Str::limit($faq->translate('en')->answer ?? '', 120) }}</td>
                             <td>
-                                <a href="{{ route('faq.edit', ['faq' => $faq->id]) }}" class="icon-btn green-bc">
+                                <a href="{{ route('admin.faqs.edit', ['faq' => $faq->id]) }}" class="icon-btn green-bc">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a href="javascript:;" class="icon-btn red-bc delete-btn"
-                                    data-url="{{ route('faq.destroy', ['faq' => $faq->id]) }}">
+                                    data-url="{{ route('admin.faqs.destroy', ['faq' => $faq->id]) }}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

@@ -88,11 +88,11 @@
                             <td>{{ $project->clint }}</td>
                             <td>{{ $project->date_at }}</td>
                             <td>
-                                <a href="{{ route('project.edit', ['project' => $project->id]) }}" class="icon-btn green-bc">
+                                <a href="{{ route('admin.projects.edit', ['project' => $project->id]) }}" class="icon-btn green-bc">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a href="javascript:;" class="icon-btn red-bc delete-btn"
-                                    data-url="{{ route('project.destroy', ['project' => $project->id]) }}">
+                                    data-url="{{ route('admin.projects.destroy', ['project' => $project->id]) }}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

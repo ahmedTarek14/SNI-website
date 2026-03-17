@@ -62,27 +62,34 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
-        $data = [
-            'clint' => $request->input('clint'),
-            'date_at' => $request->input('date_at'),
-            'development_id' => $request->input('development_id'),
-        ];
+        try {
+            $data = [
+                'clint' => $request->input('clint'),
+                'date_at' => $request->input('date_at'),
+                'development_id' => $request->input('development_id'),
+            ];
 
-        if ($request->hasFile('image')) {
-            $this->image_delete($project->image, 'projects');
-            $data['image'] = $this->image_manipulate($request->file('image'), 'projects');
+            if ($request->hasFile('image')) {
+                $this->image_delete($project->image, 'projects');
+                $data['image'] = $this->image_manipulate($request->file('image'), 'projects');
+            }
+
+            $project->update($data);
+
+            foreach (config('translatable.locales') as $locale) {
+                $translation = $project->translateOrNew($locale);
+                $translation->name = $request->string('name_' . $locale);
+                $translation->description = $request->input('description_' . $locale);
+                $translation->save();
+            }
+
+
+            $url = route('admin.projects.index');
+
+            return update_response($url);
+        } catch (\Throwable $th) {
+            return error_response();
         }
-
-        $project->update($data);
-
-        foreach (config('translatable.locales') as $locale) {
-            $translation = $project->translateOrNew($locale);
-            $translation->name = $request->string('name_' . $locale);
-            $translation->description = $request->input('description_' . $locale);
-            $translation->save();
-        }
-
-        return redirect()->route('project.index');
     }
 
     /**
