@@ -10,6 +10,8 @@ use Modules\Project\Http\Resources\ChallengeResource;
 use Modules\Project\Models\Challenge;
 use Modules\Service\Http\Resources\ServiceResource;
 use Modules\Service\Models\Service;
+use Modules\Sni\Http\Resources\ReviewResource;
+use Modules\Sni\Models\Review;
 
 class ServiceController extends Controller
 {
@@ -29,6 +31,8 @@ class ServiceController extends Controller
 
             $challenges = Challenge::orderByDesc('id')->take(3)->get();
 
+            $reviews = Review::orderByDesc('id')->get();
+
 
             $data = [
                 'banner'               => $banner ? new BannerResource($banner) : null,
@@ -38,6 +42,7 @@ class ServiceController extends Controller
                 'section2'             => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
                 'challenge'            => ChallengeResource::collection($challenges)->response()->getData(true),
                 'section3'             => $sections->get(3) ? new SectionResource($sections->get(3)) : null,
+                'reviews'              => ReviewResource::collection($reviews)->response()->getData(true),
             ];
 
 

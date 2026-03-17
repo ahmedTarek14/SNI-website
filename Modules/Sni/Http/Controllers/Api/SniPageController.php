@@ -10,10 +10,10 @@ use Modules\Service\Http\Resources\ServiceResource;
 use Modules\Service\Models\Service;
 use Modules\Settings\Models\Location;
 use Modules\Settings\Models\Setting;
-use Modules\Sni\Models\About;
 use Modules\Sni\Http\Resources\AboutUsResource;
 use Modules\Sni\Http\Resources\SniContactResource;
 use Modules\Sni\Http\Resources\VendorResource;
+use Modules\Sni\Models\About;
 use Modules\Sni\Models\Vendor;
 
 class SniPageController extends Controller
@@ -25,7 +25,7 @@ class SniPageController extends Controller
     {
 
         try {
-            $page = Page::where('slug', 'sni')->with(['banners', 'sections'])->first();
+            $page = Page::where('slug', 'home')->with(['banners', 'sections'])->first();
 
             $banner = $page?->banners?->sortBy('created_at')->first();
 
@@ -63,15 +63,15 @@ class SniPageController extends Controller
 
             // return api_response_success($resource->toArray(request()));
             $data = [
-                'banner'               => $banner ? new BannerResource($banner) : null,
-                'section0'             => $sections->get(0) ? new SectionResource($sections->get(0)) : null,
-                'services'             => ServiceResource::collection($services)->response()->getData(true),
-                'section1'             => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
-                'vendors'              => VendorResource::collection($vendors)->response()->getData(true),
-                'section2'             => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
-                'about_us'             => AboutUsResource::collection($about)->response()->getData(true),
-                'section3'             => $sections->get(3) ? new SectionResource($sections->get(3)) : null,
-                'contact'              => new SniContactResource([
+                'banner' => $banner ? new BannerResource($banner) : null,
+                'section0' => $sections->get(0) ? new SectionResource($sections->get(0)) : null,
+                'services' => ServiceResource::collection($services)->response()->getData(true),
+                'section1' => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
+                'vendors' => VendorResource::collection($vendors)->response()->getData(true),
+                'section2' => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
+                'about_us' => AboutUsResource::collection($about)->response()->getData(true),
+                'section3' => $sections->get(3) ? new SectionResource($sections->get(3)) : null,
+                'contact' => new SniContactResource([
                     'addresses' => $locations
                         ->map(static function (Location $location) {
                             return $location->translateOrDefault(locale())?->address ?? null;
@@ -79,11 +79,10 @@ class SniPageController extends Controller
                         ->filter()
                         ->values()
                         ->all(),
-                    'phones'    => $setting?->phone ? [(string) $setting->phone] : [],
-                    'emails'    => $setting?->email ? [(string) $setting->email] : [],
+                    'phones' => $setting?->phone ? [(string) $setting->phone] : [],
+                    'emails' => $setting?->email ? [(string) $setting->email] : [],
                 ]),
             ];
-
 
             return api_response_success($data);
         } catch (\Throwable $th) {

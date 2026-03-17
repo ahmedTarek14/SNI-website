@@ -20,7 +20,7 @@ class SmartController extends Controller
     public function index()
     {
         try {
-            $page = Page::where('slug', 'smart')->with(['banners', 'sections'])->first();
+            $page = Page::where('slug', 'smart-home')->with(['banners', 'sections'])->first();
 
             $banner = $page?->banners?->sortBy('created_at')->first();
 
