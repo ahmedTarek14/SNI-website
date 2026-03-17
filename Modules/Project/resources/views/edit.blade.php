@@ -10,12 +10,6 @@
             <li class="active">Edit</li>
         </ul>
     </div>
-
-    @php
-        /** @var \Modules\Project\Models\Project $project */
-        $developments = $developments ?? \Modules\Development\Models\Development::with('translations')->get();
-    @endphp
-
     <div class="page-content">
         <form class="row ajax-form" method="post" action="{{ route('admin.projects.update', ['project' => $project->id]) }}"
             enctype="multipart/form-data">
@@ -36,13 +30,13 @@
                 <input class="form-control" type="date" name="date_at" value="{{ $project->date_at }}">
             </div>
             <div class="col-md-6 col-sm-6 form-group">
-                <label>Development</label>
-                <select class="form-control" name="development_id">
+                <label>Category</label>
+                <select class="form-control" name="category_id">
                     <option value="">--select--</option>
-                    @foreach ($developments as $development)
-                        <option value="{{ $development->id }}"
-                            {{ (int) $project->development_id === (int) $development->id ? 'selected' : '' }}>
-                            {{ $development->translate('en')->title ?? ('#' . $development->id) }}
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            {{ (int) $project->category_id === (int) $category->id ? 'selected' : '' }}>
+                            {{ $category->name ?? ('#' . $category->id) }}
                         </option>
                     @endforeach
                 </select>

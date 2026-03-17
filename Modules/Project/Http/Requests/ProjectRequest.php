@@ -14,12 +14,12 @@ class ProjectRequest extends FormRequest
             'image' => $this->isMethod('post') ? 'required|image|max:6144' : 'nullable|image|max:6144',
             'clint' => 'nullable|string|max:255',
             'date_at' => 'nullable|date',
-            'development_id' => 'nullable|integer',
+            'category_id' => 'required|integer',
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $rules['name_'.$locale] = 'required|string|max:255';
-            $rules['description_'.$locale] = 'nullable|string';
+            $rules['name_' . $locale] = 'required|string|max:255';
+            $rules['description_' . $locale] = 'nullable|string';
         }
 
         return $rules;
@@ -31,12 +31,12 @@ class ProjectRequest extends FormRequest
             'image' => 'Image',
             'clint' => 'Client',
             'date_at' => 'Date',
-            'development_id' => 'Development',
+            'category_id' => 'Category',
         ];
 
         foreach (config('translatable.locales') as $locale) {
-            $attrs['name_'.$locale] = 'Name ('.strtoupper($locale).')';
-            $attrs['description_'.$locale] = 'Description ('.strtoupper($locale).')';
+            $attrs['name_' . $locale] = 'Name (' . strtoupper($locale) . ')';
+            $attrs['description_' . $locale] = 'Description (' . strtoupper($locale) . ')';
         }
 
         return $attrs;

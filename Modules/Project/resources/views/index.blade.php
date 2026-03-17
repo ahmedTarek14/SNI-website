@@ -48,14 +48,11 @@
                 <input class="form-control" type="date" name="date_at">
             </div>
             <div class="col-md-6 col-sm-6 form-group">
-                <label>Development</label>
-                <select class="form-control" name="development_id">
+                <label>Category</label>
+                <select class="form-control" name="category_id">
                     <option value="">--select--</option>
-                    @php
-                        $developments = $developments ?? \Modules\Development\Models\Development::with('translations')->get();
-                    @endphp
-                    @foreach ($developments as $development)
-                        <option value="{{ $development->id }}">{{ $development->translate('en')->title ?? ('#' . $development->id) }}
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name ?? ('#' . $category->id) }}
                         </option>
                     @endforeach
                 </select>
@@ -99,7 +96,7 @@
                 </thead>
                 <tbody>
                     @php
-                        $projects = $projects ?? \Modules\Project\Models\Project::with(['translations', 'development'])->get()->sortByDesc('id');
+                        $projects = $projects ?? \Modules\Project\Models\Project::with(['translations', 'category'])->get()->sortByDesc('id');
                     @endphp
                     @foreach ($projects as $index => $project)
                         <tr>

@@ -5,6 +5,7 @@ namespace Modules\Project\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Traits\ImageTrait;
 use Modules\Project\Http\Requests\ProjectRequest;
+use Modules\Project\Models\Category;
 use Modules\Project\Models\Project;
 
 class ProjectController extends Controller
@@ -16,9 +17,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with(['translations', 'development'])->orderByDesc('id')->get();
+        $projects = Project::with(['translations', 'category'])->orderByDesc('id')->get();
+        $categories = Category::get();
 
-        return view('project::index', compact('projects'));
+        return view('project::index', compact('projects', 'categories'));
     }
 
     /**
@@ -31,7 +33,7 @@ class ProjectController extends Controller
                 'image' => $this->image_manipulate($request->file('image'), 'projects'),
                 'clint' => $request->input('clint'),
                 'date_at' => $request->input('date_at'),
-                'development_id' => $request->input('development_id'),
+                'category_id' => $request->input('category_id'),
             ]);
 
             foreach (config('translatable.locales') as $locale) {
@@ -54,7 +56,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('project::edit', compact('project'));
+        $categories = Category::get();
+        return view('project::edit', compact('project', 'categories'));
     }
 
     /**
@@ -66,7 +69,7 @@ class ProjectController extends Controller
             $data = [
                 'clint' => $request->input('clint'),
                 'date_at' => $request->input('date_at'),
-                'development_id' => $request->input('development_id'),
+                'category_id' => $request->input('category_id'),
             ];
 
             if ($request->hasFile('image')) {

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Astrotomic\Translatable\Translatable;
 use App\Traits\ImageTrait;
-use Modules\Development\Models\Development;
 
 class Project extends Model
 {
@@ -21,8 +20,8 @@ class Project extends Model
         return $this->get_image($this->image, 'projects');
     }
 
-    public function development()
+    public function category()
     {
-        return $this->belongsTo(Development::class);
+        return $this->belongsTo(Category::class);
     }
 }
