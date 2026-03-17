@@ -51,4 +51,15 @@ class ServiceController extends Controller
             return api_response_error();
         }
     }
+
+    public function show($id)
+    {
+        try {
+            $service = Service::findOrFail($id);
+
+            return api_response_success(new ServiceResource($service));
+        } catch (\Throwable $th) {
+            return api_response_error();
+        }
+    }
 }
