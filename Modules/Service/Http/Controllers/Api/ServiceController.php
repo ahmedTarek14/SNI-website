@@ -7,9 +7,9 @@ use Modules\Page\Http\Resources\BannerResource;
 use Modules\Page\Http\Resources\SectionResource;
 use Modules\Page\Models\Page;
 use Modules\Project\Http\Resources\ChallengeResource;
-use Modules\Project\Http\Resources\SingleServiceResource;
 use Modules\Project\Models\Challenge;
 use Modules\Service\Http\Resources\ServiceResource;
+use Modules\Service\Http\Resources\SingleServiceResource;
 use Modules\Service\Models\Service;
 use Modules\Sni\Http\Resources\ReviewResource;
 use Modules\Sni\Models\Review;
@@ -68,7 +68,6 @@ class ServiceController extends Controller
     {
         try {
             $services = Service::orderByDesc('id')->get();
-
             return api_response_success(SingleServiceResource::collection($services)->response()->getData(true));
         } catch (\Throwable $th) {
             return api_response_error();

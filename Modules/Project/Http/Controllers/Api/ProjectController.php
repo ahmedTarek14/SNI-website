@@ -64,4 +64,25 @@ class ProjectController extends Controller
             return api_response_error();
         }
     }
+
+    public function show($id)
+    {
+        try {
+            $projects = Project::where('category_id', $id)->orderByDesc('id')->get();
+
+            return api_response_success(ProjectResource::collection($projects)->response()->getData(true));
+        } catch (\Throwable $th) {
+            return api_response_error();
+        }
+    }
+
+    public function all()
+    {
+        try {
+            $categories = Category::orderByDesc('id')->get();
+            return api_response_success(CategoryResource::collection($categories)->response()->getData(true));
+        } catch (\Throwable $th) {
+            return api_response_error();
+        }
+    }
 }

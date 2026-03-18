@@ -97,7 +97,6 @@ class SniPageController extends Controller
 
             return api_response_success($data);
         } catch (\Throwable $th) {
-            dd($th);
             return api_response_error();
         }
     }
