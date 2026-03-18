@@ -7,6 +7,8 @@
     $isServices = request()->routeIs('admin.services.*');
     $isFaq = request()->routeIs('admin.faqs.*');
     $isProjects = request()->routeIs('admin.projects.*');
+    $isChallenges = request()->routeIs('admin.challenges.*');
+    $isImpactNumbers = request()->routeIs('admin.impact-numbers.*');
 
     $isSmartFeatures = request()->routeIs('admin.smart.features.*');
     $isSmartBenefits = request()->routeIs('admin.smart.benefits.*');
@@ -15,9 +17,10 @@
     $isSettingsGeneral = request()->routeIs('admin.settings.*');
     $isSettingsLocations = request()->routeIs('admin.locations.*');
     $isSettingsWorkHours = request()->routeIs('admin.work-hours.*');
-    $isSettings = $isSettingsGeneral || $isSettingsLocations || $isSettingsWorkHours;
-
-    // $isAboutUs = request()->is('admin/about-us/*') || request()->is('admin/about-us');
+    $isAboutUs = request()->routeIs('admin.about.*');
+    $isReviews = request()->routeIs('admin.reviews.*');
+    $isVendors = request()->routeIs('admin.vendors.*');
+    $isSettings = $isSettingsGeneral || $isSettingsLocations || $isSettingsWorkHours || $isAboutUs || $isReviews || $isVendors;
 @endphp
 
 <aside class="side-menu">
@@ -54,19 +57,25 @@
         </li>
 
         {{-- Pages Section --}}
-        <li class="sub-menu {{ $isServices || $isProjects || $isSmart ? 'active' : '' }}">
+        <li class="sub-menu {{ $isServices || $isProjects || $isSmart || $isImpactNumbers ? 'active' : '' }}">
             <a href="javascript:void(0);">
                 <i class="fa fa-file"></i>
                 Pages
                 <i class="fa fa-angle-down"></i>
             </a>
             {{-- force display block for all Pages --}}
-            <ul style="display: {{ $isServices || $isProjects || $isSmart ? 'block' : '' }}">
+            <ul style="display: {{ $isServices || $isProjects || $isSmart || $isImpactNumbers || $isChallenges ? 'block' : '' }}">
                 <li class="{{ $isServices ? 'active' : '' }}">
                     <a href="{{ route('admin.services.index') }}">- Services</a>
                 </li>
                 <li class="{{ $isProjects ? 'active' : '' }}">
                     <a href="{{ route('admin.projects.index') }}">- Projects</a>
+                </li>
+                <li class="{{ $isChallenges ? 'active' : '' }}">
+                    <a href="{{ route('admin.challenges.index') }}">- Challenges</a>
+                </li>
+                <li class="{{ $isImpactNumbers ? 'active' : '' }}">
+                    <a href="{{ route('admin.impact-numbers.edit') }}">- Impact Numbers</a>
                 </li>
                 <li class="{{ $isSmartFeatures ? 'active' : '' }}">
                     <a href="{{ route('admin.smart.features.index') }}">- Smart Features</a>
@@ -94,9 +103,15 @@
                 <li class="{{ $isSettingsWorkHours ? 'active' : '' }}">
                     <a href="{{ route('admin.work-hours.index') }}">- Work Hours</a>
                 </li>
-                {{-- <li class="{{ $isAboutUs ? 'active' : '' }}">
+                <li class="{{ $isAboutUs ? 'active' : '' }}">
                     <a href="{{ route('admin.about.index') }}">- About Us</a>
-                </li> --}}
+                </li>
+                <li class="{{ $isReviews ? 'active' : '' }}">
+                    <a href="{{ route('admin.reviews.index') }}">- Reviews</a>
+                </li>
+                <li class="{{ $isVendors ? 'active' : '' }}">
+                    <a href="{{ route('admin.vendors.index') }}">- Vendors</a>
+                </li>
             </ul>
         </li>
 
