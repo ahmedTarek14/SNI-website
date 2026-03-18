@@ -13,7 +13,7 @@
 
     <!-- Fave Icons
         ================================-->
-    <link rel="shortcut icon" href="{{ aurl('images/fav-icon.png') }}">
+    <link rel="shortcut icon" href="{{ aurl('images/fav-icon.jpeg') }}">
 
     <!-- Css Base And Vendor
         ===================================-->
@@ -28,6 +28,7 @@
     <!-- Site Css
         ====================================-->
     <link rel="stylesheet" href="{{ aurl('css/style.css') }}">
+    @stack('css')
 
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
