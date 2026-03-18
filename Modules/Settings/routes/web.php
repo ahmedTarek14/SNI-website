@@ -16,11 +16,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
     });
 
     Route::controller(SettingsController::class)->name('admin.settings.')->prefix('settings')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::post('/store', 'store')->name('store');
+        // Route::get('/', 'index')->name('index');
+        // Route::post('/store', 'store')->name('store');
         Route::get('/edit/{setting}', 'edit')->name('edit');
         Route::put('/update/{setting}', 'update')->name('update');
-        Route::delete('/delete/{setting}', 'destroy')->name('destroy');
+        // Route::delete('/delete/{setting}', 'destroy')->name('destroy');
     });
 
     Route::controller(WorkHourController::class)->prefix('work-hours')->name('admin.work-hours.')->group(function () {
