@@ -80,7 +80,12 @@ class SniPageController extends Controller
                 'contact' => new SniContactResource([
                     'addresses' => $locations
                         ->map(static function (Location $location) {
-                            return $location->translateOrDefault(locale())?->address ?? null;
+                            return [
+                                'address' => $location->translateOrDefault(locale())?->address ?? null,
+                                'latitude' => $location->lat,
+                                'longitude' => $location->lng,
+
+                            ];
                         })
                         ->filter()
                         ->values()
@@ -92,6 +97,7 @@ class SniPageController extends Controller
 
             return api_response_success($data);
         } catch (\Throwable $th) {
+            dd($th);
             return api_response_error();
         }
     }

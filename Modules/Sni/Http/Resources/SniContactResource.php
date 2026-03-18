@@ -18,18 +18,18 @@ class SniContactResource extends JsonResource
 
         return [
             'addresses' => collect($addresses)
-                ->filter()
-                ->map(static fn ($value) => (string) $value)
+                ->filter(fn($item) => !empty($item['address']))
                 ->values()
                 ->all(),
             'phones' => collect($phones)
                 ->filter()
-                ->map(static fn ($value) => (string) $value)
+                ->map(static fn($value) => (string) $value)
                 ->values()
                 ->all(),
+
             'emails' => collect($emails)
                 ->filter()
-                ->map(static fn ($value) => (string) $value)
+                ->map(static fn($value) => (string) $value)
                 ->values()
                 ->all(),
         ];

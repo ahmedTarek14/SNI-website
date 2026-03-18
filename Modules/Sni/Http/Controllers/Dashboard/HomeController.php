@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $messages = Message::orderBy('created_at', 'desc')->take(10)->get();
+        $messages = Message::orderBy('created_at', 'desc')->get();
         return view('sni::index', compact('messages'));
     }
 
