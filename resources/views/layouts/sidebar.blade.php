@@ -10,7 +10,7 @@
 
     $isSmartFeatures = request()->routeIs('admin.smart.features.*');
     $isSmartBenefits = request()->routeIs('admin.smart.benefits.*');
-    $isSmart = $isSmartFeatures || $isSmartBenefits || request()->routeIs('smart.index');
+    $isSmart = $isSmartFeatures || $isSmartBenefits || request()->routeIs('admin.smart.index');
 
     $isSettingsGeneral = request()->routeIs('admin.settings.*');
     $isSettingsLocations = request()->routeIs('admin.locations.*');
@@ -67,6 +67,12 @@
                 </li>
                 <li class="{{ $isProjects ? 'active' : '' }}">
                     <a href="{{ route('admin.projects.index') }}">- Projects</a>
+                </li>
+                <li class="{{ $isSmartFeatures ? 'active' : '' }}">
+                    <a href="{{ route('admin.smart.features.index') }}">- Smart Features</a>
+                </li>
+                <li class="{{ $isSmartBenefits ? 'active' : '' }}">
+                    <a href="{{ route('admin.smart.benefits.index') }}">- Smart Benefits</a>
                 </li>
             </ul>
         </li>
