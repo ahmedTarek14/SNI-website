@@ -21,7 +21,7 @@
             @method('put')
 
             <div class="col-md-12 col-sm-12 form-group">
-                <img src="{{ $setting->image_path }}" alt="logo">
+                <img src="{{ $setting->image_path }}" alt="logo" style="width: 159px; height: 150px; object-fit: cover; cursor: pointer;">
                 <label>Logo</label>
                 <input class="jfilestyle" type="file" name="logo">
             </div>
