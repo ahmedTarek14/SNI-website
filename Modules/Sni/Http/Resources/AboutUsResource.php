@@ -15,7 +15,6 @@ class AboutUsResource extends JsonResource
         $translation = $this?->translateOrDefault(locale());
 
         return [
-            'image' => (string) $this?->image_path,
             'title' => (string) ($translation?->title ?? ''),
             'description' => (string) ($translation?->description ?? ''),
         ];

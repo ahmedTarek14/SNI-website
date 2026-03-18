@@ -28,7 +28,7 @@ class ContactController extends Controller
 
             $banner = $page?->banners?->sortBy('created_at')->first();
 
-            $sections = $page?->sections?->sortBy('created_at')->values() ?? collect();
+            $sections = $page?->sections?->sortBy('id')->values() ?? collect();
 
             $faq = Faq::orderByDesc('id')->get();
 

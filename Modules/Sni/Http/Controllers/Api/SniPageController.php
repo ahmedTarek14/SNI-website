@@ -31,7 +31,7 @@ class SniPageController extends Controller
 
             $banner = $page?->banners?->sortBy('created_at')->first();
 
-            $sections = $page?->sections?->sortBy('created_at')->values() ?? collect();
+            $sections = $page?->sections?->sortBy('id')->values() ?? collect();
 
             $services = Service::orderByDesc('id')->get();
 
@@ -44,6 +44,8 @@ class SniPageController extends Controller
             $setting = Setting::all()->first();
 
             $impactNumber = ImpactNumber::first();
+
+            // dd($sections);
 
             // $payload = [
             //     'banner' => $banner,
@@ -97,6 +99,7 @@ class SniPageController extends Controller
 
             return api_response_success($data);
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return api_response_error();
         }
     }
