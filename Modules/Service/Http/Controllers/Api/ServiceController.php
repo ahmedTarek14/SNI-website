@@ -7,6 +7,7 @@ use Modules\Page\Http\Resources\BannerResource;
 use Modules\Page\Http\Resources\SectionResource;
 use Modules\Page\Models\Page;
 use Modules\Project\Http\Resources\ChallengeResource;
+use Modules\Project\Http\Resources\SingleServiceResource;
 use Modules\Project\Models\Challenge;
 use Modules\Service\Http\Resources\ServiceResource;
 use Modules\Service\Models\Service;
@@ -58,6 +59,17 @@ class ServiceController extends Controller
             $service = Service::findOrFail($id);
 
             return api_response_success(new ServiceResource($service));
+        } catch (\Throwable $th) {
+            return api_response_error();
+        }
+    }
+
+    public function all()
+    {
+        try {
+            $services = Service::orderByDesc('id')->get();
+
+            return api_response_success(SingleServiceResource::collection($services)->response()->getData(true));
         } catch (\Throwable $th) {
             return api_response_error();
         }
