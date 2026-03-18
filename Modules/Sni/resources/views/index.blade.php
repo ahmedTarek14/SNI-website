@@ -20,7 +20,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $message->message }}</td>
                             <td>
-                                {{ $message->service->translate(locale())->name ?? 'N/A' }}
+                                {{ $message?->service?->translate('en')?->title ?? 'N/A' }}
                             </td>
                             <td>
                                 {{ $message->name }}
