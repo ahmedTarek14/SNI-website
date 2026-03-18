@@ -45,7 +45,6 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Image</th>
                         <th>Title</th>
                         <th>Actions</th>
                     </tr>
@@ -57,8 +56,6 @@
                     @foreach ($abouts as $index => $about)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td><img src="{{ $about->image_path }}"
-                                    style="width: 80px; height: 80px; object-fit: cover;"></td>
                             <td>{{ $about->translate('en')->title ?? '' }}</td>
                             <td>
                                 <a href="{{ route('admin.about.edit', ['about' => $about->id]) }}"
