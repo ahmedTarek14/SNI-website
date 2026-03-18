@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->time('open_time');
             $table->time('close_time');
-            $table->enum('is_off', [1, 0])->default(1);
+            $table->boolean('is_off')->default(1);
             $table->timestamps();
         });
     }
