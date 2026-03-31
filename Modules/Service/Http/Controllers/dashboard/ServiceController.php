@@ -29,6 +29,7 @@ class ServiceController extends Controller
         try {
             $service = Service::create([
                 'logo' => $this->image_manipulate($request->file('logo'), 'services'),
+                'slug' => $request->string('slug'),
             ]);
 
             foreach (config('translatable.locales') as $locale) {
@@ -60,11 +61,14 @@ class ServiceController extends Controller
     public function update(ServiceRequest $request, Service $service)
     {
         try {
+            $service->slug = $request->string('slug');
+
             if ($request->hasFile('logo')) {
                 $this->image_delete($service->logo, 'services');
                 $service->logo = $this->image_manipulate($request->file('logo'), 'services');
-                $service->save();
             }
+
+            $service->save();
 
             foreach (config('translatable.locales') as $locale) {
                 $translation = $service->translateOrNew($locale);

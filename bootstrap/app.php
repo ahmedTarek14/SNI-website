@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
 
+        $middleware->prepend(\Illuminate\Http\Middleware\HandleCors::class);
+
         // ===== Redirects =====
         $middleware->redirectGuestsTo(fn() => route('admin.login'));
         $middleware->redirectUsersTo('/admin');

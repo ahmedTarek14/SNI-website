@@ -9,6 +9,7 @@ use Modules\Page\Models\Page;
 use Modules\Project\Http\Resources\CategoryResource;
 use Modules\Project\Http\Resources\ChallengeResource;
 use Modules\Project\Http\Resources\ImpactNumberResource;
+use Modules\Project\Http\Resources\ProjectDetailResource;
 use Modules\Project\Http\Resources\ProjectResource;
 use Modules\Project\Models\Category;
 use Modules\Project\Models\Challenge;
@@ -31,17 +32,17 @@ class ProjectController extends Controller
 
             $sections = $page?->sections?->sortBy('id')->values() ?? collect();
 
-            $categories = Category::has('projects')
+            $categories = Category::with('translations')->has('projects')
                 ->orderByDesc('id')
                 ->get();
 
-            $projects = Project::orderByDesc('id')->get();
+            $projects = Project::with('translations')->orderByDesc('id')->get();
 
-            $challenges = Challenge::orderByDesc('id')->get();
+            $challenges = Challenge::with('translations')->orderByDesc('id')->get();
 
             $impactNumber = ImpactNumber::first();
 
-            $reviews = Review::orderByDesc('id')->get();
+            $reviews = Review::with('translations')->orderByDesc('id')->get();
 
 
             $data = [
@@ -73,6 +74,18 @@ class ProjectController extends Controller
             return api_response_success(ProjectResource::collection($projects)->response()->getData(true));
         } catch (\Throwable $th) {
             return api_response_error();
+        }
+    }
+
+    public function detail($id)
+    {
+        try {
+            $project = Project::with(['translations', 'category.translations', 'images'])
+                ->findOrFail($id);
+
+            return api_response_success(new ProjectDetailResource($project));
+        } catch (\Throwable $th) {
+            return api_response_error($th->getMessage());
         }
     }
 

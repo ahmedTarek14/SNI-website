@@ -40,6 +40,11 @@
                 <input class="jfilestyle" type="file" name="logo" required>
             </div>
 
+            <div class="col-md-12 col-sm-12 form-group">
+                <label>Slug <small class="text-muted">(URL identifier, e.g. it-consulting)</small></label>
+                <input class="form-control" type="text" name="slug" placeholder="e.g. it-consulting" required>
+            </div>
+
             @foreach ($locales as $locale)
                 <div class="col-md-6 col-sm-6 form-group">
                     <label>Title ({{ strtoupper($locale) }})</label>

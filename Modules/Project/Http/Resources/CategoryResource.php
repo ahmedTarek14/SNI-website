@@ -13,8 +13,8 @@ class CategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => (int) $this?->id,
-            'name' => (string) $this?->name,
+            'id'   => (int) $this?->id,
+            'name' => (string) ($this?->translateOrDefault(locale())?->name ?? $this?->name),
         ];
     }
 }

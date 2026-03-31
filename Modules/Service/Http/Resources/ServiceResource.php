@@ -15,11 +15,12 @@ class ServiceResource extends JsonResource
         $translation = $this?->translateOrDefault(locale());
 
         return [
-            'id' => (int) $this?->id,
-            'title' => (string) ($translation?->title ?? null),
-            'sub_title' => (string) ($translation?->subtitle ?? null),
+            'id'          => (int) $this?->id,
+            'slug'        => (string) ($this?->slug ?? ''),
+            'title'       => (string) ($translation?->title ?? null),
+            'sub_title'   => (string) ($translation?->subtitle ?? null),
             'description' => (string) ($translation?->description ?? null),
-            'logo' => (string) $this?->image_path,
+            'logo'        => (string) $this?->image_path,
         ];
     }
 }

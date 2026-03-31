@@ -26,11 +26,11 @@ class SmartController extends Controller
 
             $sections = $page?->sections?->sortBy('id')->values() ?? collect();
 
-            $smartFeatures = SmartFeature::orderByDesc('id')->get();
+            $smartFeatures = SmartFeature::with('translations')->orderByDesc('id')->get();
 
-            $smartBenefits = SmartBenefit::orderByDesc('id')->get();
+            $smartBenefits = SmartBenefit::with('translations')->orderByDesc('id')->get();
 
-            $reviews = Review::orderByDesc('id')->get();
+            $reviews = Review::with('translations')->orderByDesc('id')->get();
 
             $data = [
                 'banner'               => $banner ? new BannerResource($banner) : null,

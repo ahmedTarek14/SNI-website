@@ -4,16 +4,18 @@ namespace Modules\Project\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Project\Database\Factories\CategoryFactory;
+use Astrotomic\Translatable\Translatable;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, Translatable;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = ['name'];
+
+    public $translatedAttributes = ['name'];
+
+    public $translationModel = CategoryTranslation::class;
+    public $translationForeignKey = 'category_id';
 
     public function projects()
     {

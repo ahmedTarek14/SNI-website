@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('smart_features', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

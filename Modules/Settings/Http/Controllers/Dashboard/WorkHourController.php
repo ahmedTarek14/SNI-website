@@ -33,7 +33,6 @@ class WorkHourController extends Controller
             $url = route('admin.work-hours.index');
             return add_response($url);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return error_response();
         }
     }

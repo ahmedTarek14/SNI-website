@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="keywords" content="">
     <meta name="copyright" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Title Name
         ================================-->

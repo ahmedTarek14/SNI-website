@@ -10,8 +10,11 @@ class ServiceRequest extends FormRequest
 {
     public function rules()
     {
+        $serviceId = $this->route('service')?->id;
+
         $rules = [
             'logo' => $this->isMethod('post') ? 'required|image|max:4096' : 'nullable|image|max:4096',
+            'slug' => 'required|string|max:100|alpha_dash|unique:services,slug,' . $serviceId,
         ];
 
         foreach (config('translatable.locales') as $locale) {
@@ -27,6 +30,7 @@ class ServiceRequest extends FormRequest
     {
         $attrs = [
             'logo' => 'Logo',
+            'slug' => 'Slug',
         ];
 
         foreach (config('translatable.locales') as $locale) {

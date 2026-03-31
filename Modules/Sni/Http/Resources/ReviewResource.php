@@ -13,9 +13,9 @@ class ReviewResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => (string) $this->name,
-            'rate' => (string) $this->rate,
-            'message' => (string) $this->message,
+            'name'    => (string) $this->name,
+            'rate'    => (string) $this->rate,
+            'message' => (string) ($this->translateOrDefault(locale())?->message ?? $this->message),
         ];
     }
 }

@@ -10,45 +10,40 @@ use Modules\Page\Http\Resources\SectionResource;
 use Modules\Page\Models\Page;
 use Modules\Settings\Models\Location;
 use Modules\Settings\Models\Setting;
+use Modules\Settings\Models\WorkHour;
 use Modules\Sni\Http\Requests\ContactRequest;
 use Modules\Sni\Http\Resources\ReviewResource;
 use Modules\Sni\Http\Resources\SniContactResource;
+use Modules\Sni\Http\Resources\WorkHourResource;
 use Modules\Sni\Models\Message;
 use Modules\Sni\Models\Review;
 
 class ContactController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function index()
     {
         try {
             $page = Page::where('slug', 'contact')->with(['banners', 'sections'])->first();
 
-            $banner = $page?->banners?->sortBy('created_at')->first();
-
+            $banner   = $page?->banners?->sortBy('created_at')->first();
             $sections = $page?->sections?->sortBy('id')->values() ?? collect();
 
-            $faq = Faq::orderByDesc('id')->get();
-
-            $reviews = Review::orderByDesc('id')->get();
-
-            $locations = Location::orderByDesc('id')->get();
-
-            $setting = Setting::all()->first();
+            $faq       = Faq::with('translations')->orderByDesc('id')->get();
+            $reviews   = Review::with('translations')->orderByDesc('id')->get();
+            $locations = Location::with('translations')->orderByDesc('id')->get();
+            $setting   = Setting::all()->first();
+            $workHours = WorkHour::orderBy('id')->get();
 
             $data = [
-                'banner' => $banner ? new BannerResource($banner) : null,
-                'section0' => $sections->get(0) ? new SectionResource($sections->get(0)) : null,
-                'contact' => new SniContactResource([
+                'banner'     => $banner ? new BannerResource($banner) : null,
+                'section0'   => $sections->get(0) ? new SectionResource($sections->get(0)) : null,
+                'contact'    => new SniContactResource([
                     'addresses' => $locations
                         ->map(static function (Location $location) {
                             return [
-                                'address' => $location->translateOrDefault(locale())?->address ?? null,
-                                'latitude' => $location->lat,
+                                'address'   => $location->translateOrDefault(locale())?->address ?? null,
+                                'latitude'  => $location->lat,
                                 'longitude' => $location->lng,
-
                             ];
                         })
                         ->filter()
@@ -57,36 +52,33 @@ class ContactController extends Controller
                     'phones' => $setting?->phone ? [(string) $setting->phone] : [],
                     'emails' => $setting?->email ? [(string) $setting->email] : [],
                 ]),
-                'section1' => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
-                'faq' => FaqResource::collection($faq)->response()->getData(true),
-                'section2' => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
-                'reviews' => ReviewResource::collection($reviews)->response()->getData(true),
+                'work_hours' => WorkHourResource::collection($workHours)->response()->getData(true),
+                'section1'   => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
+                'faq'        => FaqResource::collection($faq)->response()->getData(true),
+                'section2'   => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
+                'reviews'    => ReviewResource::collection($reviews)->response()->getData(true),
             ];
 
             return api_response_success($data);
         } catch (\Throwable $th) {
-            return api_response_error();
+            return api_response_error($th->getMessage());
         }
     }
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(ContactRequest $request)
     {
         try {
-            $data = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'company' => $request->company,
+            Message::create([
+                'name'       => $request->name,
+                'email'      => $request->email,
+                'phone'      => $request->phone,
+                'company'    => $request->company,
                 'service_id' => $request->service_id,
-                'message' => $request->message,
-            ];
-            Message::create($data);
+                'message'    => $request->message,
+            ]);
 
             return api_response_success('yourMessageWasSent');
         } catch (\Throwable $th) {
-            // dd($th->getMessage());
             return api_response_error();
         }
     }

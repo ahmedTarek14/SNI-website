@@ -11,12 +11,22 @@ class Service extends Model
 {
     use HasFactory, Translatable, ImageTrait;
 
-    protected $fillable = ['logo'];
+    protected $fillable = ['logo', 'slug'];
 
     public $translatedAttributes = ['title', 'subtitle', 'description'];
 
     public function getImagePathAttribute()
     {
         return $this->get_image($this->logo, 'services');
+    }
+
+    public function features()
+    {
+        return $this->hasMany(ServiceFeature::class);
+    }
+
+    public function processes()
+    {
+        return $this->hasMany(ServiceProcess::class);
     }
 }

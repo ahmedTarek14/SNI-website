@@ -13,7 +13,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::orderByDesc('id')->get();
+        $reviews = Review::with('translations')->orderByDesc('id')->get();
 
         return view('sni::review.index', compact('reviews'));
     }
