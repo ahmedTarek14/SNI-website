@@ -20,7 +20,9 @@
     $isAboutUs = request()->routeIs('admin.about.*');
     $isReviews = request()->routeIs('admin.reviews.*');
     $isVendors = request()->routeIs('admin.vendors.*');
-    $isSettings = $isSettingsGeneral || $isSettingsLocations || $isSettingsWorkHours || $isAboutUs || $isReviews || $isVendors;
+    $isWhyItem = request()->routeIs('admin.why-items.*');
+    $isTeamMembers = request()->routeIs('admin.team-members.*');
+    $isSettings = $isSettingsGeneral || $isSettingsLocations || $isSettingsWorkHours || $isAboutUs || $isReviews || $isVendors || $isWhyItem || $isTeamMembers;
 @endphp
 
 <aside class="side-menu">
@@ -42,12 +44,12 @@
             </a>
         </li>
 
-        <li class="{{ $isSections ? 'active' : '' }}">
+        {{-- <li class="{{ $isSections ? 'active' : '' }}">
             <a href="{{ route('admin.sections.index') }}">
                 <i class="fa fa-list"></i>
                 Sections
             </a>
-        </li>
+        </li> --}}
 
         <li class="{{ $isSocial ? 'active' : '' }}">
             <a href="{{ route('admin.links.index') }}">
@@ -77,12 +79,12 @@
                 <li class="{{ $isImpactNumbers ? 'active' : '' }}">
                     <a href="{{ route('admin.impact-numbers.edit') }}">- Impact Numbers</a>
                 </li>
-                <li class="{{ $isSmartFeatures ? 'active' : '' }}">
+                {{-- <li class="{{ $isSmartFeatures ? 'active' : '' }}">
                     <a href="{{ route('admin.smart.features.index') }}">- Smart Features</a>
                 </li>
                 <li class="{{ $isSmartBenefits ? 'active' : '' }}">
                     <a href="{{ route('admin.smart.benefits.index') }}">- Smart Benefits</a>
-                </li>
+                </li> --}}
             </ul>
         </li>
 
@@ -112,6 +114,11 @@
                 <li class="{{ $isVendors ? 'active' : '' }}">
                     <a href="{{ route('admin.vendors.index') }}">- Vendors</a>
                 </li>
+                <li class="{{ $isWhyItem ? 'active' : '' }}">
+                    <a href="{{ route('admin.why-items.index') }}">- Why Items</a>
+                </li>
+                <li class="{{ $isTeamMembers ? 'active' : '' }}">
+                    <a href="{{ route('admin.team-members.index') }}">- Team Members</a>
             </ul>
         </li>
 
