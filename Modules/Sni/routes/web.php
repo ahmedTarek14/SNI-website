@@ -10,6 +10,9 @@ use Modules\Sni\Http\Controllers\Dashboard\HomeController;
 use Modules\Sni\Http\Controllers\Dashboard\AboutController;
 use Modules\Sni\Http\Controllers\Dashboard\ReviewController;
 use Modules\Sni\Http\Controllers\Dashboard\VendorController;
+use Modules\Sni\Http\Controllers\Dashboard\WhyItemController;
+use Modules\Sni\Http\Controllers\Dashboard\CoreValueController;
+use Modules\Sni\Http\Controllers\Dashboard\TeamMemberController;
 
 Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'auth:web']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('admin.dashboard');
@@ -36,5 +39,29 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
         Route::get('/edit/{vendor}', 'edit')->name('edit');
         Route::put('/update/{vendor}', 'update')->name('update');
         Route::delete('/delete/{vendor}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(WhyItemController::class)->name('admin.why-items.')->prefix('why-items')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{whyItem}', 'edit')->name('edit');
+        Route::put('/update/{whyItem}', 'update')->name('update');
+        Route::delete('/delete/{whyItem}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(CoreValueController::class)->name('admin.core-values.')->prefix('core-values')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{coreValue}', 'edit')->name('edit');
+        Route::put('/update/{coreValue}', 'update')->name('update');
+        Route::delete('/delete/{coreValue}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(TeamMemberController::class)->name('admin.team-members.')->prefix('team-members')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{teamMember}', 'edit')->name('edit');
+        Route::put('/update/{teamMember}', 'update')->name('update');
+        Route::delete('/delete/{teamMember}', 'destroy')->name('destroy');
     });
 });
