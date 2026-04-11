@@ -20,9 +20,10 @@
     $isAboutUs = request()->routeIs('admin.about.*');
     $isReviews = request()->routeIs('admin.reviews.*');
     $isVendors = request()->routeIs('admin.vendors.*');
+    $isClients = request()->routeIs('admin.clients.*');
     $isWhyItem = request()->routeIs('admin.why-items.*');
     $isTeamMembers = request()->routeIs('admin.team-members.*');
-    $isSettings = $isSettingsGeneral || $isSettingsLocations || $isSettingsWorkHours || $isAboutUs || $isReviews || $isVendors || $isWhyItem || $isTeamMembers;
+    $isSettings = $isSettingsGeneral || $isSettingsLocations || $isSettingsWorkHours || $isAboutUs || $isReviews || $isVendors || $isClients || $isWhyItem || $isTeamMembers;
 @endphp
 
 <aside class="side-menu">
@@ -113,6 +114,9 @@
                 </li>
                 <li class="{{ $isVendors ? 'active' : '' }}">
                     <a href="{{ route('admin.vendors.index') }}">- Vendors</a>
+                </li>
+                  <li class="{{ $isClients ? 'active' : '' }}">
+                    <a href="{{ route('admin.clients.index') }}">- Clients</a>
                 </li>
                 <li class="{{ $isWhyItem ? 'active' : '' }}">
                     <a href="{{ route('admin.why-items.index') }}">- Why Items</a>
