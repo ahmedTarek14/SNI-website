@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Modules\Sni\Http\Controllers\Dashboard\HomeController;
 use Modules\Sni\Http\Controllers\Dashboard\AboutController;
+use Modules\Sni\Http\Controllers\Dashboard\ClientController;
 use Modules\Sni\Http\Controllers\Dashboard\ReviewController;
 use Modules\Sni\Http\Controllers\Dashboard\VendorController;
 use Modules\Sni\Http\Controllers\Dashboard\WhyItemController;
@@ -63,5 +64,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
         Route::get('/edit/{teamMember}', 'edit')->name('edit');
         Route::put('/update/{teamMember}', 'update')->name('update');
         Route::delete('/delete/{teamMember}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(ClientController::class)->name('admin.clients.')->prefix('clients')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{client}', 'edit')->name('edit');
+        Route::put('/update/{client}', 'update')->name('update');
+        Route::delete('/delete/{client}', 'destroy')->name('destroy');
     });
 });

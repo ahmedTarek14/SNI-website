@@ -19,6 +19,7 @@ use Modules\Sni\Http\Resources\TeamMemberResource;
 use Modules\Sni\Http\Resources\VendorResource;
 use Modules\Sni\Http\Resources\WhyItemResource;
 use Modules\Sni\Models\About;
+use Modules\Sni\Models\Client;
 use Modules\Sni\Models\CoreValue;
 use Modules\Sni\Models\TeamMember;
 use Modules\Sni\Models\Vendor;
@@ -51,7 +52,7 @@ class SniPageController extends Controller
                 'section1'     => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
                 'vendors'      => VendorResource::collection($vendors)->response()->getData(true),
                 'section2'     => $sections->get(2) ? new SectionResource($sections->get(2)) : null,
-                'impact_number'=> $impactNumber ? new ImpactNumberResource($impactNumber) : null,
+                'impact_number' => $impactNumber ? new ImpactNumberResource($impactNumber) : null,
                 'section3'     => $sections->get(3) ? new SectionResource($sections->get(3)) : null,
                 'about_us'     => AboutUsResource::collection($about)->response()->getData(true),
                 'section4'     => $sections->get(4) ? new SectionResource($sections->get(4)) : null,
@@ -78,6 +79,22 @@ class SniPageController extends Controller
             return api_response_success($data);
         } catch (\Throwable $th) {
             \Illuminate\Support\Facades\Log::error('SniPageController error: ' . $th->getMessage());
+            return api_response_error($th->getMessage());
+        }
+    }
+
+    public function clients()
+    {
+        try {
+            $clients = Client::orderByDesc('id')->get();
+
+            $data = [
+                'clients' => VendorResource::collection($clients)->response()->getData(true),
+            ];
+
+            return api_response_success($data);
+        } catch (\Throwable $th) {
+            \Illuminate\Support\Facades\Log::error('SniPageController clients error: ' . $th->getMessage());
             return api_response_error($th->getMessage());
         }
     }
