@@ -18,17 +18,16 @@ class WorkHourController extends Controller
     public function store(WorkHourRequest $request)
     {
         try {
+            $dayKey = $request->input('day_key');
+
             $workHour = WorkHour::create([
+                'day_key' => $dayKey,
                 'open_time' => $request->input('open_time'),
                 'close_time' => $request->input('close_time'),
                 'is_off' => (bool) $request->input('is_off'),
             ]);
 
-            foreach (config('translatable.locales') as $locale) {
-                $translation = $workHour->translateOrNew($locale);
-                $translation->day = $request->string('day_' . $locale);
-                $translation->save();
-            }
+            $this->saveDayTranslations($workHour, $dayKey);
 
             $url = route('admin.work-hours.index');
             return add_response($url);
@@ -45,17 +44,17 @@ class WorkHourController extends Controller
     public function update(WorkHourRequest $request, WorkHour $workHour)
     {
         try {
+            $dayKey = $request->input('day_key');
+
             $workHour->update([
+                'day_key' => $dayKey,
                 'open_time' => $request->input('open_time'),
                 'close_time' => $request->input('close_time'),
                 'is_off' => (bool) $request->input('is_off'),
             ]);
 
-            foreach (config('translatable.locales') as $locale) {
-                $translation = $workHour->translateOrNew($locale);
-                $translation->day = $request->string('day_' . $locale);
-                $translation->save();
-            }
+            $this->saveDayTranslations($workHour, $dayKey);
+
             $url = route('admin.work-hours.index');
             return update_response($url);
         } catch (\Throwable $th) {
@@ -63,10 +62,19 @@ class WorkHourController extends Controller
         }
     }
 
-    // public function destroy(WorkHour $workHour)
-    // {
-    //     $workHour->delete();
+    public function destroy(WorkHour $workHour)
+    {
+        $workHour->delete();
 
-    //     return redirect()->back();
-    // }
+        return redirect()->back();
+    }
+
+    private function saveDayTranslations(WorkHour $workHour, string $dayKey): void
+    {
+        foreach (WorkHour::DAYS[$dayKey] as $locale => $label) {
+            $translation = $workHour->translateOrNew($locale);
+            $translation->day = $label;
+            $translation->save();
+        }
+    }
 }

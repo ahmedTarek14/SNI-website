@@ -59,145 +59,23 @@
         </form>
     </div>
 
-    {{-- ── Features section ────────────────────────────────────────────── --}}
+    {{-- ── Features & process steps management ────────────────────────── --}}
     <div class="page-content" style="margin-top:20px;">
-        <h5 class="mb-3"><i class="fa fa-star"></i> What's Included (Features)</h5>
-
-        {{-- Existing features --}}
-        @if($features->count())
-        <div class="table-responsive-lg mb-4">
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Icon Path</th>
-                        <th>Title (EN)</th>
-                        <th>Title (AR)</th>
-                        <th>Sort</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($features as $i => $feature)
-                    <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td><small>{{ $feature->icon }}</small></td>
-                        <td>{{ $feature->translate('en')->title ?? '' }}</td>
-                        <td>{{ $feature->translate('ar')->title ?? '' }}</td>
-                        <td>{{ $feature->sort_order }}</td>
-                        <td>
-                            <a href="javascript:;" class="icon-btn red-bc delete-btn"
-                               data-url="{{ route('admin.service-features.destroy', ['feature' => $feature->id]) }}">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h5 class="mb-3"><i class="fa fa-star"></i> What's Included (Features)</h5>
+                <p>{{ $features->count() }} feature(s) added.</p>
+                <a href="{{ route('admin.service-features.index', ['service' => $service->id]) }}" class="custom-btn">
+                    <span><i class="fa fa-list"></i> Manage Features</span>
+                </a>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <h5 class="mb-3"><i class="fa fa-list-ol"></i> How We Work (Process Steps)</h5>
+                <p>{{ $processes->count() }} step(s) added.</p>
+                <a href="{{ route('admin.service-processes.index', ['service' => $service->id]) }}" class="custom-btn">
+                    <span><i class="fa fa-list"></i> Manage Process Steps</span>
+                </a>
+            </div>
         </div>
-        @endif
-
-        {{-- Add new feature --}}
-        <form class="row ajax-form" method="post"
-              action="{{ route('admin.service-features.store', ['service' => $service->id]) }}">
-            @csrf
-            <div class="col-md-12"><h6>Add Feature</h6></div>
-
-            <div class="col-md-8 col-sm-8 form-group">
-                <label>Icon Path</label>
-                <input class="form-control" type="text" name="icon" placeholder="/assets/icons/security.png">
-            </div>
-            <div class="col-md-4 col-sm-4 form-group">
-                <label>Sort Order</label>
-                <input class="form-control" type="number" name="sort_order" value="{{ $features->count() }}">
-            </div>
-
-            @foreach ($locales as $locale)
-                <div class="col-md-6 col-sm-6 form-group">
-                    <label>Title ({{ strtoupper($locale) }})</label>
-                    <input class="form-control" type="text" name="title_{{ $locale }}" required>
-                </div>
-                <div class="col-md-6 col-sm-6 form-group">
-                    <label>Description ({{ strtoupper($locale) }})</label>
-                    <textarea class="form-control" name="description_{{ $locale }}" rows="2"></textarea>
-                </div>
-            @endforeach
-
-            <div class="col-md-12 form-group">
-                <button class="custom-btn"><span><i class="fa fa-plus"></i> Add Feature</span></button>
-            </div>
-        </form>
-    </div>
-
-    {{-- ── Process steps section ───────────────────────────────────────── --}}
-    <div class="page-content" style="margin-top:20px;">
-        <h5 class="mb-3"><i class="fa fa-list-ol"></i> How We Work (Process Steps)</h5>
-
-        {{-- Existing processes --}}
-        @if($processes->count())
-        <div class="table-responsive-lg mb-4">
-            <table class="table table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Num</th>
-                        <th>Title (EN)</th>
-                        <th>Title (AR)</th>
-                        <th>Sort</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($processes as $i => $process)
-                    <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td>{{ $process->num }}</td>
-                        <td>{{ $process->translate('en')->title ?? '' }}</td>
-                        <td>{{ $process->translate('ar')->title ?? '' }}</td>
-                        <td>{{ $process->sort_order }}</td>
-                        <td>
-                            <a href="javascript:;" class="icon-btn red-bc delete-btn"
-                               data-url="{{ route('admin.service-processes.destroy', ['process' => $process->id]) }}">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        @endif
-
-        {{-- Add new process step --}}
-        <form class="row ajax-form" method="post"
-              action="{{ route('admin.service-processes.store', ['service' => $service->id]) }}">
-            @csrf
-            <div class="col-md-12"><h6>Add Process Step</h6></div>
-
-            <div class="col-md-4 col-sm-4 form-group">
-                <label>Step Number <small class="text-muted">(e.g. 01)</small></label>
-                <input class="form-control" type="text" name="num" value="{{ str_pad($processes->count() + 1, 2, '0', STR_PAD_LEFT) }}" maxlength="4">
-            </div>
-            <div class="col-md-4 col-sm-4 form-group">
-                <label>Sort Order</label>
-                <input class="form-control" type="number" name="sort_order" value="{{ $processes->count() }}">
-            </div>
-
-            @foreach ($locales as $locale)
-                <div class="col-md-6 col-sm-6 form-group">
-                    <label>Title ({{ strtoupper($locale) }})</label>
-                    <input class="form-control" type="text" name="title_{{ $locale }}" required>
-                </div>
-                <div class="col-md-6 col-sm-6 form-group">
-                    <label>Description ({{ strtoupper($locale) }})</label>
-                    <textarea class="form-control" name="description_{{ $locale }}" rows="2"></textarea>
-                </div>
-            @endforeach
-
-            <div class="col-md-12 form-group">
-                <button class="custom-btn"><span><i class="fa fa-plus"></i> Add Step</span></button>
-            </div>
-        </form>
     </div>
 @endsection

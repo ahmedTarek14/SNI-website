@@ -23,7 +23,8 @@
     $isClients = request()->routeIs('admin.clients.*');
     $isWhyItem = request()->routeIs('admin.why-items.*');
     $isTeamMembers = request()->routeIs('admin.team-members.*');
-    $isSettings = $isSettingsGeneral || $isSettingsLocations || $isSettingsWorkHours || $isAboutUs || $isReviews || $isVendors || $isClients || $isWhyItem || $isTeamMembers;
+    $isCoreValues = request()->routeIs('admin.core-values.*');
+    $isSettings = $isSettingsGeneral || $isSettingsLocations || $isSettingsWorkHours || $isAboutUs || $isReviews || $isVendors || $isClients || $isWhyItem || $isTeamMembers || $isCoreValues;
 @endphp
 
 <aside class="side-menu">
@@ -123,6 +124,10 @@
                 </li>
                 <li class="{{ $isTeamMembers ? 'active' : '' }}">
                     <a href="{{ route('admin.team-members.index') }}">- Team Members</a>
+                </li>
+                <li class="{{ $isCoreValues ? 'active' : '' }}">
+                    <a href="{{ route('admin.core-values.index') }}">- Core Values</a>
+                </li>
             </ul>
         </li>
 

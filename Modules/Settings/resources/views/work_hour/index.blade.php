@@ -23,19 +23,20 @@
                 <input class="form-control" type="time" name="close_time">
             </div>
             <div class="col-md-4 col-sm-4 form-group">
-                <label>Off</label>
-                <select class="form-control" name="is_off">
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
+                <label>Day</label>
+                <select class="form-control" name="day_key" required>
+                    <option value="">-- select day --</option>
+                    @foreach (\Modules\Settings\Models\WorkHour::DAYS as $key => $label)
+                        <option value="{{ $key }}">{{ $label['en'] }}</option>
+                    @endforeach
                 </select>
             </div>
 
-            @foreach ($locales as $locale)
-                <div class="col-md-6 col-sm-6 form-group">
-                    <label>Day ({{ strtoupper($locale) }})</label>
-                    <input class="form-control" type="text" name="day_{{ $locale }}" required>
-                </div>
-            @endforeach
+            <div class="col-md-12 col-sm-12 form-group">
+                <label class="d-block">Off</label>
+                <input type="hidden" name="is_off" value="0">
+                <input type="checkbox" name="is_off" value="1"> Closed all day
+            </div>
 
             <div class="col-md-12 col-sm-12">
                 <hr>
@@ -78,10 +79,10 @@
                                     class="icon-btn green-bc">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                {{-- <a href="javascript:;" class="icon-btn red-bc delete-btn"
+                                <a href="javascript:;" class="icon-btn red-bc delete-btn"
                                     data-url="{{ route('admin.work-hours.destroy', ['workHour' => $workHour->id]) }}">
                                     <i class="fas fa-trash"></i>
-                                </a> --}}
+                                </a>
                             </td>
                         </tr>
                     @endforeach

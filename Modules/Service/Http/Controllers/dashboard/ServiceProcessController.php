@@ -9,6 +9,13 @@ use Modules\Service\Models\ServiceProcess;
 
 class ServiceProcessController extends Controller
 {
+    public function index(Service $service)
+    {
+        $processes = $service->processes()->with('translations')->orderBy('sort_order')->get();
+
+        return view('service::process.index', compact('service', 'processes'));
+    }
+
     public function store(ServiceProcessRequest $request, Service $service)
     {
         try {
@@ -25,9 +32,39 @@ class ServiceProcessController extends Controller
                 $translation->save();
             }
 
-            $url = route('admin.services.edit', ['service' => $service->id]);
+            $url = route('admin.service-processes.index', ['service' => $service->id]);
 
             return add_response($url);
+        } catch (\Throwable $th) {
+            return error_response();
+        }
+    }
+
+    public function edit(ServiceProcess $process)
+    {
+        $service = Service::findOrFail($process->service_id);
+
+        return view('service::process.edit', compact('process', 'service'));
+    }
+
+    public function update(ServiceProcessRequest $request, ServiceProcess $process)
+    {
+        try {
+            $process->update([
+                'num'        => $request->input('num', '01'),
+                'sort_order' => $request->input('sort_order', 0),
+            ]);
+
+            foreach (config('translatable.locales') as $locale) {
+                $translation = $process->translateOrNew($locale);
+                $translation->title       = $request->string('title_' . $locale);
+                $translation->description = $request->input('description_' . $locale);
+                $translation->save();
+            }
+
+            $url = route('admin.service-processes.index', ['service' => $process->service_id]);
+
+            return update_response($url);
         } catch (\Throwable $th) {
             return error_response();
         }
@@ -38,6 +75,6 @@ class ServiceProcessController extends Controller
         $serviceId = $process->service_id;
         $process->delete();
 
-        return redirect()->route('admin.services.edit', ['service' => $serviceId]);
+        return redirect()->route('admin.service-processes.index', ['service' => $serviceId]);
     }
 }

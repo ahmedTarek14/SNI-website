@@ -11,6 +11,7 @@ use Modules\Page\Models\Page;
 use Modules\Settings\Models\Location;
 use Modules\Settings\Models\Setting;
 use Modules\Settings\Models\WorkHour;
+use Modules\Settings\Support\WorkHourScheduleGrouper;
 use Modules\Sni\Http\Requests\ContactRequest;
 use Modules\Sni\Http\Resources\ReviewResource;
 use Modules\Sni\Http\Resources\SniContactResource;
@@ -32,7 +33,7 @@ class ContactController extends Controller
             $reviews   = Review::with('translations')->orderByDesc('id')->get();
             $locations = Location::with('translations')->orderByDesc('id')->get();
             $setting   = Setting::all()->first();
-            $workHours = WorkHour::orderBy('id')->get();
+            $workHourRanges = WorkHourScheduleGrouper::group(WorkHour::all());
 
             $data = [
                 'banner'     => $banner ? new BannerResource($banner) : null,
@@ -52,7 +53,7 @@ class ContactController extends Controller
                     'phones' => $setting?->phone ? [(string) $setting->phone] : [],
                     'emails' => $setting?->email ? [(string) $setting->email] : [],
                 ]),
-                'work_hours' => WorkHourResource::collection($workHours)->response()->getData(true),
+                'work_hours' => WorkHourResource::collection($workHourRanges)->response()->getData(true),
                 'section1'   => $sections->get(1) ? new SectionResource($sections->get(1)) : null,
                 'faq'        => FaqResource::collection($faq)->response()->getData(true),
                 'section2'   => $sections->get(2) ? new SectionResource($sections->get(2)) : null,

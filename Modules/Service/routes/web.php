@@ -17,13 +17,19 @@ Route::group(['prefix' => LaravelLocalization::setLocale() . '/admin', 'middlewa
 
     // Service Features
     Route::controller(ServiceFeatureController::class)->name('admin.service-features.')->prefix('services')->group(function () {
+        Route::get('/{service}/features', 'index')->name('index');
         Route::post('/{service}/features/store', 'store')->name('store');
+        Route::get('/features/{feature}/edit', 'edit')->name('edit');
+        Route::put('/features/{feature}/update', 'update')->name('update');
         Route::delete('/features/{feature}/delete', 'destroy')->name('destroy');
     });
 
     // Service Processes
     Route::controller(ServiceProcessController::class)->name('admin.service-processes.')->prefix('services')->group(function () {
+        Route::get('/{service}/processes', 'index')->name('index');
         Route::post('/{service}/processes/store', 'store')->name('store');
+        Route::get('/processes/{process}/edit', 'edit')->name('edit');
+        Route::put('/processes/{process}/update', 'update')->name('update');
         Route::delete('/processes/{process}/delete', 'destroy')->name('destroy');
     });
 });
